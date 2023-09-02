@@ -121,3 +121,13 @@ export const deleteSubtask = async (id) => {
     throw error;
   }
 };
+
+export const doneSubtask = async (id) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/subtasks/done/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error editing task:", error);
+    throw error;
+  }
+};

@@ -105,6 +105,14 @@ const Home = () => {
     }
   };
 
+  // Fetch Task
+  const handleFetchTask = async (taskId) => {
+    const fetchTask = await fetchOneTask(taskId);
+    if (fetchTask.task.Status === "completed") {
+      await handleCompleteTask(taskId);
+    }
+  };
+
   return (
     <div className="p-12 flex flex-col justify-center items-center">
       <h1 className=" text-4xl p-4 font-bold">Todo App</h1>
@@ -114,8 +122,8 @@ const Home = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-1/2">
-          <h2 className="text-2xl pt-5 text-left font-semibold">
+        <div className="w-full lg:w-1/2">
+          <h2 className="text-2xl pt-5 text-center font-semibold lg:text-left">
             Ongoing Tasks
           </h2>
           {ongoingTasks.length === 0 ? (
@@ -129,10 +137,11 @@ const Home = () => {
               onEditTask={handleEditTask}
               onTaskCompleted={handleCompleteTask}
               onEditDeadline={handleEditDeadline}
+              fetchTask={handleFetchTask}
             />
           )}
 
-          <h2 className="text-2xl pt-2 text-left font-semibold">
+          <h2 className="text-2xl pt-5 text-center font-semibold lg:text-left">
             Completed Tasks
           </h2>
           {completedTasks.length === 0 ? (
@@ -144,6 +153,7 @@ const Home = () => {
               tasks={completedTasks}
               onDeleteTask={handleDeleteTask}
               onEditTask={handleEditTask}
+              fetchTask={handleFetchTask}
             />
           )}
         </div>
